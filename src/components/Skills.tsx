@@ -50,8 +50,7 @@ const Skills = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">My Skills</h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Here are the technologies and tools I work with to bring ideas to life.
-            From frontend frameworks to backend systems and databases.
+            Proficient in full-stack development with React, Node.js, and Supabase. Experienced in AI integrations using OpenAI and Python automation. Focused on clean, responsive, and efficient web applications.
           </p>
         </div>
 

@@ -54,10 +54,10 @@ const Projects = () => {
       githubUrl: 'https://github.com/dzowa008/smarta-note-wizard.git',
     },
     {
-      title: 'Portfolio Website',
+      title: 'Buildinglink',
       category: 'Full Stack',
       image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400',
-      description: '',
+      description: 'Our construction company specializes in residential, commercial, and renovation projects. From foundations to finishes, we deliver high-quality workmanship, on time and on budget.Whether you are planning a new home, office space, or remodeling an existing structure — we bring your vision to life with expert craftsmanship and professional service.',
       technologies: ['Next.js', 'Tailwind', 'Sanity CMS'],
       liveUrl: '#',
       githubUrl: '#',
@@ -74,8 +74,7 @@ const Projects = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">My Projects</h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
-            Lorem ipsum dolor sit amet consectetur. Tristique amet sed massa nibh lectus
-            lacinia. Pharetra consectetur nullum
+            I build full-stack apps featuring AI-powered note-taking, automation bots, and web tools like YouTube downloaders. Each project focuses on clean code, usability, and real-world problem solving.
           </p>
 
           {/* Filter Buttons */}

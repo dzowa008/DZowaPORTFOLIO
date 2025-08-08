@@ -29,8 +29,7 @@ const About = () => {
           <div className="lg:w-1/2">
             <h2 className="text-4xl font-bold mb-6">About Me</h2>
             <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur. Tristique amet sed massa nibh lectus
-              netus in. Aliquet donec morbi convallis pretium. Turpis tempus placerat.
+              I work with modern technologies like React, Supabase, Python, and Node.js to create user-friendly solutions. My projects include AI-powered note-taking apps, YouTube downloaders, automation bots, and e-commerce platforms. I focus on clean code, performance, and great user experience across all devices. Let's build something impactful.
             </p>
 
             <div className="space-y-6">

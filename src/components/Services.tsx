@@ -31,8 +31,7 @@ const Services = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Services</h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Lorem ipsum dolor sit amet consectetur. Tristique amet sed massa nibh lectus
-            netus in. Aliquet donec morbi convallis pretium.
+            I offer full-stack web development, AI integration, automation solutions, and custom app creation. Helping businesses and individuals build smart, efficient, and user-friendly digital products.
           </p>
         </div>
 
