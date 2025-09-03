@@ -1,56 +1,322 @@
-import React from 'react';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Github, Twitter, Mail, Facebook, ArrowDown, Sparkles, Code, Zap, Star, Download, ExternalLink, Rocket } from 'lucide-react';
 
 const Hero = () => {
-  return (
-    <section id="home" className="min-h-screen flex items-center pt-20">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-          <div className="lg:w-1/2 mb-12 lg:mb-0">
-            <p className="text-orange-500 text-lg mb-4">Hi I am</p>
-            <p className="text-orange-500 text-xl mb-2">Takunda Dzowa</p>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              Full Stack
-              <br />
-              <span className="text-orange-500">Developer</span>
-            </h1>
-            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-I work with modern technologies like React, Supabase, Python, and Node.js to create user-friendly solutions. My projects include AI-powered note-taking apps, YouTube downloaders, automation bots, and e-commerce platforms. I focus on clean code, performance, and great user experience across all devices. Let's build something impactful.
-            </p>
-            <button className="bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-lg text-white font-medium transition-colors duration-300">
-              Hire Me
-            </button>
-          </div>
+  const [isVisible, setIsVisible] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  const [currentRole, setCurrentRole] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLElement>(null);
 
-          <div className="lg:w-1/2 flex justify-center">
-            <div className="relative">
-              <div className="w-80 h-80 rounded-full overflow-hidden bg-gradient-to-br from-orange-500 to-orange-600 p-1">
-                <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center">
-                  <img
-                    src="src\components\Sharp-Dressed-Youth-in-Navy-Suit.webp"
-                    alt="Developer"
-                    className="w-full h-full object-cover rounded-full"
-                  />
+  const roles = [
+    { text: 'Full Stack Developer', icon: <Code size={20} />, color: 'from-blue-500 to-cyan-500' },
+    { text: 'React Expert', icon: <Rocket size={20} />, color: 'from-green-500 to-emerald-500' },
+  ];
+
+  useEffect(() => {
+    setIsVisible(true);
+    
+    // Enhanced typing animation with role cycling
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    const typeRole = () => {
+      const currentRoleText = roles[roleIndex].text;
+      
+      if (!isDeleting) {
+        setTypedText(currentRoleText.slice(0, charIndex + 1));
+        charIndex++;
+        
+        if (charIndex === currentRoleText.length) {
+          setTimeout(() => { isDeleting = true; }, 2000);
+        }
+      } else {
+        setTypedText(currentRoleText.slice(0, charIndex - 1));
+        charIndex--;
+        
+        if (charIndex === 0) {
+          isDeleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          setCurrentRole(roleIndex);
+        }
+      }
+    };
+
+    const timer = setInterval(typeRole, isDeleting ? 50 : 100);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Mouse tracking for parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: (e.clientX - rect.left) / rect.width,
+          y: (e.clientY - rect.top) / rect.height
+        });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const socialLinks = [
+    { icon: Github, href: 'https://github.com/dzowa008', label: 'GitHub', color: 'hover:bg-gray-800' },
+    { icon: Twitter, href: '#', label: 'Twitter', color: 'hover:bg-blue-500' },
+    { icon: Mail, href: 'mailto:takunda@example.com', label: 'Email', color: 'hover:bg-red-500' },
+    { icon: Facebook, href: '#', label: 'Facebook', color: 'hover:bg-blue-600' },
+  ];
+
+  const stats = [
+    { number: '50+', label: 'Projects', icon: <Code size={18} /> },
+    { number: '3+', label: 'Years Exp', icon: <Zap size={18} /> },
+    { number: '100%', label: 'Success Rate', icon: <Star size={18} /> }
+  ];
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToNext = () => {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section 
+      ref={heroRef}
+      id="home" 
+      className="h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800"
+    >
+      {/* Advanced Background Effects */}
+      <div className="absolute inset-0">
+        {/* Animated gradient orbs with parallax */}
+        <div 
+          className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-orange-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse"
+          style={{
+            transform: `translate(${mousePosition.x * 30}px, ${mousePosition.y * 30}px)`,
+          }}
+        />
+        <div 
+          className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-full blur-3xl animate-pulse delay-1000"
+          style={{
+            transform: `translate(${mousePosition.x * -20}px, ${mousePosition.y * -20}px)`,
+          }}
+        />
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 rounded-full blur-3xl animate-pulse delay-500" />
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="grid grid-cols-12 grid-rows-8 h-full w-full">
+            {[...Array(96)].map((_, i) => (
+              <div key={i} className="border border-orange-500/20" />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10 h-full flex items-center py-16">
+        <div className="grid lg:grid-cols-12 gap-12 items-center w-full">
+          {/* Left Column - Main Content */}
+          <div className={`lg:col-span-7 space-y-6 transition-all duration-1000 ${
+            isVisible ? 'animate-slideInLeft opacity-100' : 'opacity-0'
+          }`}>
+            {/* Status Badge */}
+            <div className="inline-flex items-center gap-3 glass px-6 py-3 rounded-full backdrop-blur-xl border border-white/10 shadow-lg">
+              <div className="relative">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping opacity-75" />
+              </div>
+              <span className="text-sm font-medium text-gray-200">Available for new projects</span>
+              <Sparkles className="text-orange-500 animate-pulse" size={16} />
+            </div>
+            
+            {/* Main Heading */}
+            <div className="space-y-4">
+              <div className="space-y-3">
+                <p className="text-gray-400 text-lg font-medium tracking-wide uppercase text-sm">Hello, I'm</p>
+                <h1 className="text-5xl lg:text-7xl font-bold leading-none">
+                  <span className="text-white block">Takunda</span>
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-orange-400 to-yellow-400">
+                    Dzowa
+                  </span>
+                </h1>
+              </div>
+              
+              {/* Dynamic Role Display */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-full bg-gradient-to-r ${roles[currentRole].color} bg-opacity-20 backdrop-blur-sm`}>
+                    {roles[currentRole].icon}
+                  </div>
+                  <h2 className={`text-xl lg:text-2xl font-semibold bg-gradient-to-r ${roles[currentRole].color} bg-clip-text text-transparent`}>
+                    {typedText}
+                    <span className="animate-pulse text-orange-500 ml-1">|</span>
+                  </h2>
+                </div>
+                
+                {/* Role indicators */}
+                <div className="flex gap-2">
+                  {roles.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`h-1 rounded-full transition-all duration-500 ${
+                        index === currentRole ? 'w-8 bg-orange-500' : 'w-2 bg-gray-600'
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
-              <div className="absolute bottom-8 right-8 flex space-x-4">
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors duration-300">
-                  <Github size={20} />
+            </div>
+            
+            {/* Enhanced Description */}
+            <p className="text-gray-300 text-lg leading-relaxed max-w-2xl">
+              I craft modern web solutions using cutting-edge technologies like{' '}
+              <span className="text-orange-500 font-semibold">React</span>,{' '}
+              <span className="text-orange-500 font-semibold">Supabase</span>,{' '}
+              <span className="text-orange-500 font-semibold">Python</span>, and{' '}
+              <span className="text-orange-500 font-semibold">Node.js</span>.{' '}
+              From AI-powered applications to automation tools, I build impactful solutions 
+              that prioritize clean code, performance, and exceptional user experience.
+            </p>
+            
+            {/* Stats Grid */}
+            <div className="grid grid-cols-3 gap-4 py-4">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center group">
+                  <div className="glass p-3 rounded-xl hover:bg-white/10 transition-all duration-300 group-hover:scale-105">
+                    <div className="text-orange-500 mb-1 flex justify-center group-hover:scale-110 transition-transform duration-300">
+                      {stat.icon}
+                    </div>
+                    <div className="text-xl font-bold text-white">{stat.number}</div>
+                    <div className="text-xs text-gray-400">{stat.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Enhanced Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button 
+                onClick={scrollToContact}
+                className="group relative px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-full overflow-hidden transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-2xl"
+              >
+                <span className="relative z-10 flex items-center gap-2 text-sm">
+                  Let's Work Together
+                  <Rocket className="group-hover:translate-y-1 transition-transform duration-300" size={16} />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </button>
+              
+              <a 
+                href="/Takunda Dzowa Cv.pdf" 
+                download="Takunda_Dzowa_CV.pdf"
+                className="group relative px-6 py-3 glass text-white font-semibold rounded-full transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-2xl border border-white/20"
+              >
+                <span className="relative z-10 flex items-center gap-2 text-sm">
+                  Download CV
+                  <Download className="group-hover:rotate-180 transition-transform duration-500" size={16} />
+                </span>
+              </a>
+              
+              <button 
+                onClick={scrollToProjects}
+                className="group relative px-6 py-3 bg-transparent border-2 border-orange-500 text-orange-500 font-semibold rounded-full transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-2xl hover:bg-orange-500 hover:text-white"
+              >
+                <span className="relative z-10 flex items-center gap-2 text-sm">
+                  View My Work
+                  <ExternalLink className="group-hover:translate-x-1 transition-transform duration-300" size={16} />
+                </span>
+              </button>
+            </div>
+
+            {/* Enhanced Social Links */}
+            <div className="flex items-center gap-4 pt-2">
+              <span className="text-gray-400 text-xs font-medium">Connect with me:</span>
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  aria-label={social.label}
+                  className={`w-10 h-10 glass rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 ${social.color} group`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <social.icon size={16} className="group-hover:text-white transition-colors duration-300" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors duration-300">
-                  <Twitter size={20} />
-                </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors duration-300">
-                  <Linkedin size={20} />
-                </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors duration-300">
-                  <Mail size={20} />
-                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Enhanced Visual Element */}
+          <div className={`lg:col-span-5 flex justify-center transition-all duration-1000 delay-300 ${
+            isVisible ? 'animate-slideInRight opacity-100' : 'opacity-0'
+          }`}>
+            <div className="relative">
+              {/* Main Image Container */}
+              <div className="relative w-64 h-64 lg:w-80 lg:h-80 animate-float">
+                {/* Enhanced gradient border with glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 rounded-full p-1 animate-glow">
+                  <div className="w-full h-full rounded-full bg-gray-900 overflow-hidden">
+                    <img
+                      src="/images/Sharp-Dressed-Youth-in-Navy-Suit.webp"
+                      alt="Takunda Dzowa - Full Stack Developer"
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face';
+                      }}
+                    />
+                  </div>
+                </div>
+                
+                {/* Enhanced floating decorative elements */}
+                <div className="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-bounce delay-500 flex items-center justify-center">
+                  <Code size={20} className="text-white" />
+                </div>
+                <div className="absolute -bottom-6 -left-6 w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-bounce delay-700 flex items-center justify-center">
+                  <Zap size={16} className="text-white" />
+                </div>
+                <div className="absolute top-1/4 -left-10 w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse delay-1000 flex items-center justify-center">
+                  <Star size={12} className="text-white" />
+                </div>
+              </div>
+
+              {/* Experience badge */}
+              <div className="absolute top-4 left-4 glass px-3 py-1 rounded-full backdrop-blur-xl border border-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-xs text-white font-medium">3+ Years Exp</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Enhanced Scroll Indicator */}
+      <button 
+        onClick={scrollToNext}
+        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-orange-500 transition-all duration-300 animate-bounce hover:scale-110 group"
+      >
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">Scroll to explore</span>
+          <ArrowDown size={20} />
+        </div>
+      </button>
     </section>
   );
 };

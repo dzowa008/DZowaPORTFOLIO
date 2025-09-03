@@ -9,8 +9,8 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="text-2xl font-bold mb-4 md:mb-0">
-            <span className="text-orange-500">DEV</span>
-            <span className="text-white">FOLIO</span>
+            <span className="text-orange-500">TAK</span>
+            <span className="text-white">UNDA</span>
           </div>
 
           <div className="flex items-center space-x-6 mb-4 md:mb-0">
@@ -25,9 +25,6 @@ const Footer = () => {
             </a>
             <a href="#projects" className="text-gray-400 hover:text-orange-500 transition-colors duration-300">
               Projects
-            </a>
-            <a href="#skills" className="text-gray-400 hover:text-orange-500 transition-colors duration-300">
-              Skills
             </a>
             <a href="#skills" className="text-gray-400 hover:text-orange-500 transition-colors duration-300">
               Skills
@@ -55,7 +52,7 @@ const Footer = () => {
 
         <div className="text-center mt-8 pt-8 border-t border-gray-800">
           <p className="text-gray-400">
-            © {currentYear} DevFolio. All Rights Reserved.
+            © {currentYear} TAKUNDA. All Rights Reserved.
           </p>
         </div>
       </div>
