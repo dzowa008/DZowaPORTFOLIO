@@ -70,7 +70,7 @@ const Hero = () => {
 
   const stats = [
     { number: '50+', label: 'Projects', icon: <Code size={18} /> },
-    { number: '3+', label: 'Years Exp', icon: <Zap size={18} /> },
+    { number: '1+', label: 'Years Exp', icon: <Zap size={18} /> },
     { number: '100%', label: 'Success Rate', icon: <Star size={18} /> },
   ];
 
