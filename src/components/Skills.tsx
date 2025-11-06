@@ -3,7 +3,6 @@ import { Code2, Database, Globe, Server, Zap, Brain, Layers, Target } from 'luci
 
 const Skills = () => {
   const [visibleSkills, setVisibleSkills] = useState<number[]>([]);
-  const [animatedBars, setAnimatedBars] = useState<boolean>(false);
   const skillsRef = useRef<HTMLElement>(null);
 
   const skillCategories = [
@@ -12,12 +11,12 @@ const Skills = () => {
       icon: <Globe size={32} />,
       description: 'Creating responsive, interactive user interfaces',
       skills: [
-        { name: 'JavaScript', level: 95, color: 'bg-yellow-500' },
-        { name: 'React', level: 90, color: 'bg-blue-500' },
-        { name: 'Next.js', level: 85, color: 'bg-gray-700' },
-        { name: 'HTML', level: 98, color: 'bg-orange-600' },
-        { name: 'CSS', level: 92, color: 'bg-blue-600' },
-        { name: 'Tailwind CSS', level: 88, color: 'bg-cyan-500' },
+        { name: 'JavaScript', color: 'bg-yellow-500' },
+        { name: 'React', color: 'bg-blue-500' },
+        { name: 'Next.js', color: 'bg-gray-700' },
+        { name: 'HTML', color: 'bg-orange-600' },
+        { name: 'CSS', color: 'bg-blue-600' },
+        { name: 'Tailwind CSS', color: 'bg-cyan-500' },
       ]
     },
     {
@@ -25,9 +24,9 @@ const Skills = () => {
       icon: <Server size={32} />,
       description: 'Building scalable server-side applications',
       skills: [
-        { name: 'Python', level: 90, color: 'bg-green-600' },
-        { name: 'Node.js', level: 87, color: 'bg-green-500' },
-        { name: 'API Design', level: 85, color: 'bg-purple-600' },
+        { name: 'Python', color: 'bg-green-600' },
+        { name: 'Node.js', color: 'bg-green-500' },
+        { name: 'API Design', color: 'bg-purple-600' },
       ]
     },
     {
@@ -35,24 +34,24 @@ const Skills = () => {
       icon: <Database size={32} />,
       description: 'Data management and development tools',
       skills: [
-        { name: 'MySQL', level: 85, color: 'bg-blue-700' },
-        { name: 'Supabase', level: 80, color: 'bg-emerald-600' },
-        { name: 'Git', level: 92, color: 'bg-orange-500' },
+        { name: 'MySQL', color: 'bg-blue-700' },
+        { name: 'Supabase', color: 'bg-emerald-600' },
+        { name: 'Git', color: 'bg-orange-500' },
       ]
     }
   ];
 
   const allSkills = [
-    { name: 'Python', icon: '🐍', level: 90, category: 'Backend' },
-    { name: 'JavaScript', icon: '⚡', level: 95, category: 'Frontend' },
-    { name: 'React', icon: '⚛️', level: 90, category: 'Frontend' },
-    { name: 'Node.js', icon: '🟢', level: 87, category: 'Backend' },
-    { name: 'Next.js', icon: '▲', level: 85, category: 'Frontend' },
-    { name: 'HTML', icon: '🌐', level: 98, category: 'Frontend' },
-    { name: 'CSS', icon: '🎨', level: 92, category: 'Frontend' },
-    { name: 'Tailwind', icon: '💨', level: 88, category: 'Frontend' },
-    { name: 'MySQL', icon: '🗄️', level: 85, category: 'Database' },
-    { name: 'AI/ML', icon: '🤖', level: 75, category: 'Emerging' },
+    { name: 'Python', icon: '🐍', category: 'Backend' },
+    { name: 'JavaScript', icon: '⚡', category: 'Frontend' },
+    { name: 'React', icon: '⚛️', category: 'Frontend' },
+    { name: 'Node.js', icon: '🟢', category: 'Backend' },
+    { name: 'Next.js', icon: '▲', category: 'Frontend' },
+    { name: 'HTML', icon: '🌐', category: 'Frontend' },
+    { name: 'CSS', icon: '🎨', category: 'Frontend' },
+    { name: 'Tailwind', icon: '💨', category: 'Frontend' },
+    { name: 'MySQL', icon: '🗄️', category: 'Database' },
+    { name: 'AI/ML', icon: '🤖', category: 'Emerging' },
   ];
 
   const specializations = [
@@ -82,9 +81,7 @@ const Skills = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !animatedBars) {
-            setAnimatedBars(true);
-            // Animate skills one by one
+          if (entry.isIntersecting) {
             allSkills.forEach((_, index) => {
               setTimeout(() => {
                 setVisibleSkills(prev => [...prev, index]);
@@ -101,7 +98,7 @@ const Skills = () => {
     }
 
     return () => observer.disconnect();
-  }, [animatedBars]);
+  }, []);
 
   return (
     <section ref={skillsRef} id="skills" className="py-20 relative overflow-hidden">
@@ -110,6 +107,7 @@ const Skills = () => {
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl"></div>
       
       <div className="container mx-auto px-6 relative z-10">
+        {/* Header */}
         <div className="text-center mb-16 animate-fadeInUp">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Code2 className="text-orange-500" size={24} />
@@ -124,7 +122,7 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* Skills Grid */}
+        {/* Skills Grid (No Rankings) */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
           {allSkills.map((skill, index) => (
             <div
@@ -139,22 +137,10 @@ const Skills = () => {
               <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300 animate-float">
                 {skill.icon}
               </div>
-              <h3 className="text-white font-semibold mb-3 group-hover:text-orange-500 transition-colors duration-300">
+              <h3 className="text-white font-semibold mb-2 group-hover:text-orange-500 transition-colors duration-300">
                 {skill.name}
               </h3>
-              <div className="w-full bg-gray-700/50 rounded-full h-2 mb-2 overflow-hidden">
-                <div
-                  className="bg-gradient-to-r from-orange-500 to-orange-400 h-2 rounded-full transition-all duration-1000 ease-out"
-                  style={{ 
-                    width: animatedBars ? `${skill.level}%` : '0%',
-                    transitionDelay: `${index * 0.1 + 0.5}s`
-                  }}
-                ></div>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-orange-500 text-sm font-medium">{skill.level}%</span>
-                <span className="text-xs text-gray-400">{skill.category}</span>
-              </div>
+              <p className="text-xs text-gray-400">{skill.category}</p>
             </div>
           ))}
         </div>
@@ -183,13 +169,12 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Detailed Skills by Category */}
+        {/* Detailed Skill Categories */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {skillCategories.map((category, categoryIndex) => (
             <div 
               key={categoryIndex} 
               className="glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 group"
-              style={{ animationDelay: `${categoryIndex * 0.2}s` }}
             >
               <div className="flex items-center mb-6">
                 <div className="text-orange-500 mr-4 group-hover:scale-110 transition-transform duration-300">
@@ -202,30 +187,21 @@ const Skills = () => {
                   <p className="text-gray-400 text-sm">{category.description}</p>
                 </div>
               </div>
-              <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-white font-medium">{skill.name}</span>
-                      <span className="text-orange-500 font-semibold">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-gray-700/50 rounded-full h-2 overflow-hidden">
-                      <div
-                        className={`${skill.color} h-2 rounded-full transition-all duration-1000 ease-out`}
-                        style={{ 
-                          width: animatedBars ? `${skill.level}%` : '0%',
-                          transitionDelay: `${(categoryIndex * 3 + skillIndex) * 0.1 + 1}s`
-                        }}
-                      ></div>
-                    </div>
-                  </div>
+                  <span
+                    key={skillIndex}
+                    className="px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-full text-sm font-medium hover:bg-orange-500/20 transition-colors duration-300"
+                  >
+                    {skill.name}
+                  </span>
                 ))}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Skills Summary */}
+        {/* Summary */}
         <div className="text-center">
           <div className="glass p-8 rounded-2xl max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">
@@ -242,7 +218,6 @@ const Skills = () => {
                 <span 
                   key={index}
                   className="px-4 py-2 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-full text-sm font-medium hover:bg-orange-500/20 transition-colors duration-300"
-                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {tag}
                 </span>
