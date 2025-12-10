@@ -72,7 +72,7 @@ const Projects = () => {
       title: 'C-Resume',
       category: 'Full Stack',
       image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400',
-      description: 'Construction company platform for managing residential, commercial, and renovation projects with client portals and project tracking.',
+      description: 'C-Resume is an AI-powered resume parsing platform aimed at businesses that need to process and analyze resumes at scale. It focuses on extracting structured information from resumes so companies can streamline candidate screening and hiring workflows.',
       technologies: ['Next.js', 'Tailwind CSS', 'CMS'],
       liveUrl: 'https://ultimate-project-izoa.vercel.app/',
       githubUrl: 'https://github.com/dzowa008',
